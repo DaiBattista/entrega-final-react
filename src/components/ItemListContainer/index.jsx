@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Card from 'react-bootstrap/Card'
 import style from './style.module.css'
+import { CartContext } from '../CartContext/index'
 
 export default function ItemListContainer() {
+    const {productos} = useContext(CartContext)
     const [items, setItems] = useState([])
     const { id } = useParams()
 
     useEffect(() => {
         const getProducts = async () => {
-            const response = await fetch('/data/productos.json')
-            const productos = await response.json()
+            // const response = await fetch('/data/productos.json')
+            // const productos = await response.json()
             const productosFiltrados = productos.filter(producto => producto.category === id)
 
             const items = productosFiltrados.length > 0 ? productosFiltrados : productos
@@ -22,7 +24,8 @@ export default function ItemListContainer() {
         }
 
         getProducts()
-    }, [id])
+    }, [id]
+    )
 
     return (
         <Container fluid className='mt-4'>

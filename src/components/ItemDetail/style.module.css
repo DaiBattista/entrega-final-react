@@ -22,7 +22,34 @@
 }
 
 h1 {
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: bold;
     color: red;
+}
+
+h3 {
+    margin-top: 5%;
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: black;
+}
+
+.counter_info {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10%;
+}
+
+.btn_agregar {
+    padding: 0.8em;
+    border-radius: 16px;
+    margin: 0.5em;
+    background-color:rgb(223, 223, 223);
+    border-color: rgb(223, 223, 223);
+    color: rgb(224, 43, 43);
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.2em;
+    font-size: 0.5;
 }
