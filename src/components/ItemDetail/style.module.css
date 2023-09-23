@@ -1,0 +1,28 @@
+.container_detail {
+    width: 90%;
+    padding: 5%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.container_imagen {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.img_style {
+    width: 80%;
+    border-radius: 16px;
+}
+
+.container_info {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+h1 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: red;
+}
