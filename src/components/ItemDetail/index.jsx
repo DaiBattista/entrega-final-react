@@ -1,6 +1,6 @@
 import style from './style.module.css'
 import ItemCount from '../ItemCount/index.jsx'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const ItemDetail = ({ detail }) => {

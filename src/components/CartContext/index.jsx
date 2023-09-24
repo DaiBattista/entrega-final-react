@@ -85,16 +85,24 @@ export const CartComponentContext = ({children}) =>{
     const [totalCarrito, setTotalCarrito] = useState([])
     const [user, setUser] = useState([])
 
+    const totalPrice = () => {
+        return cart.reduce((prev, act) => prev + act.quantity * act.price, 0)
+    }
+
+    const totalProducts = () => cart.reduce ((acumulador, productoActual) => acumulador + productoActual.quantity, 0)
+
     const vaciarCarrito = () => {
         setCart([])
         setTotalCarrito(0)
     }
 
+    const removerProducto = (id) => setCart(cart.filter(producto => producto.id !==id))
+
     useEffect ( () => {
         setProductos(estado)
     })
     
-    return <CartContext.Provider value={{productos, setProductos, cart, setCart, totalCarrito, setTotalCarrito, vaciarCarrito, user, setUser}}>
+    return <CartContext.Provider value={{productos, setProductos, cart, setCart, totalCarrito, setTotalCarrito, vaciarCarrito, user, setUser, totalPrice, totalProducts, removerProducto}}>
         {children}
     </ CartContext.Provider>
 }
