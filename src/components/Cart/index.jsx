@@ -9,7 +9,7 @@ const Cart = () => {
 
     if (cart.length === 0) {
         return (
-            <div className={['cart_container']}>
+            <div className={style['cart_container']}>
                 <h3>No hay productos en el carrito</h3>
                 <Link to='/' className={style['btn_productos']}>Ver productos</Link>
             </div>
@@ -21,9 +21,11 @@ const Cart = () => {
             {
                 cart.map(producto => <CartItem key={producto.id} producto={producto} />)
             }
-            <p>
-                Total: {totalPrice()}
-            </p>
+            <div className={style['checkout_container']}>
+                <p>
+                    Total: <b>${totalPrice()}</b>
+                </p>
+            </div>
         </div>
     )
 }

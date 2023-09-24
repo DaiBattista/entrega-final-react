@@ -1,4 +1,4 @@
-import { useEffect, useState, useParams } from "react";
+import { useEffect, useState, useParams } from "react"
 import { createContext } from "react"
 
 const estado = [
@@ -82,9 +82,24 @@ export const CartContext = createContext();
 export const CartComponentContext = ({children}) =>{
     const [productos, setProductos] = useState([])
     const [cart, setCart] = useState([])
-    const [totalCarrito, setTotalCarrito] = useState([])
+    const [totalCarrito, setTotalCarrito] = useState(0)
     const [user, setUser] = useState([])
 
+    const getProductById = (id) => cart.find(product => product.id === id) || null
+    const addCart = (detail, quantity) => {
+        const product = getProductById(detail.id)
+        if(!product) {
+            detail.quantity = quantity
+            setCart([...cart, detail])
+        } else {
+            if(product.quantity + quantity > product.stock) return false
+            product.quantity += quantity
+        }
+        setTotalCarrito(totalCarrito + quantity)
+        return true;
+    }
+
+    const isInCart = (product) => getProductById(product.id) ? true : false
     const totalPrice = () => {
         return cart.reduce((prev, act) => prev + act.quantity * act.price, 0)
     }
@@ -101,8 +116,9 @@ export const CartComponentContext = ({children}) =>{
     useEffect ( () => {
         setProductos(estado)
     })
-    
-    return <CartContext.Provider value={{productos, setProductos, cart, setCart, totalCarrito, setTotalCarrito, vaciarCarrito, user, setUser, totalPrice, totalProducts, removerProducto}}>
+
+    return <CartContext.Provider
+    value={{productos, setProductos, cart, setCart, totalCarrito, setTotalCarrito, vaciarCarrito, user, setUser, totalPrice, totalProducts, removerProducto, addCart, isInCart}}> 
         {children}
     </ CartContext.Provider>
 }

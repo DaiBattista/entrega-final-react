@@ -11,12 +11,11 @@ import {
     Route,
     Link,
 } from 'react-router-dom'
-import { CartWidget } from '../components/CartWidget'
 
 export default function Router() {
     return (
-        <BrowserRouter>
         <CartComponentContext>
+        <BrowserRouter>
                 <NavBar />
                 <Routes>
                     <Route path="/" element={<ItemListContainer />} />
@@ -24,7 +23,7 @@ export default function Router() {
                     <Route path="/item/:id" element={<ItemDetailContainer />} />
                     <Route path="/cart" element={<Cart/>}/>
                 </Routes>
-                </CartComponentContext>
-        </BrowserRouter >
+                </BrowserRouter>
+        </CartComponentContext>
     )
 }

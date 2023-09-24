@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 15%;
-    margin: 10%;
+    align-items: center;
+    padding: 2rem;
 }
 
 .cart_container_btn {
@@ -48,6 +48,7 @@ h3 {
 }
 
 .btn_productos {
+    width: 15rem;
     padding: 0.8em;
     border-radius: 16px;
     margin: 0.5em;
@@ -58,4 +59,20 @@ h3 {
     text-decoration: none;
     letter-spacing: 0.2em;
     font-size: 0.5;
+    text-align: center;
+}
+
+.checkout_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkout_container p {
+    font-size: 1rem;
+    background-color: rgb(221, 221, 221);
+    border-radius: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    padding: 1.2em;
 }
