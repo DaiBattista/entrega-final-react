@@ -11,13 +11,13 @@ import { getDocs, collection, query, where, doc, getDoc } from 'firebase/firesto
 import { db } from '../../firebase/client'
 
 const ItemListContainer = () => {
-    const [ products, setProducts ] = useState([])
-    const [ productsAdapted, setProductsAdapted ] = useState([])
+    const [products, setProducts] = useState([])
+    const [productsAdapted, setProductsAdapted] = useState([])
 
     const { categoryId } = useParams()
 
     const collectionRef = categoryId
-        ? query(collection(db, "items"), where('category', '==', categoryId))
+        ? query(collection(db, "items"), where('categoryId', '==', categoryId))
         : collection(db, "items")
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const ItemListContainer = () => {
                 {productsAdapted.map(item => (
                     <Col key={item.id} lg={4} className='mb-4'>
                         <Card>
-                            <Card.Img variant='top' src={item.img} />
+                            <Card.Img variant='top' src={item.image} />
                             <Card.Body>
                                 <Card.Title>{item.name}</Card.Title>
                                 <Card.Text>{item.description}</Card.Text>
@@ -51,7 +51,7 @@ const ItemListContainer = () => {
 }
 
 const ItemDetailContainer = () => {
-    const [ product, setProduct ] = useState(null)
+    const [product, setProduct] = useState(null)
     const { id } = useParams()
 
     useEffect(() => {

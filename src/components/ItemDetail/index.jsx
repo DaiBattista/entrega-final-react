@@ -1,12 +1,24 @@
+import React, { useState, useContext, useEffect } from 'react'
 import style from './style.module.css'
 import ItemCount from '../ItemCount/index.jsx'
-import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../CartContext'
+import { doc, getDoc, getFirestore } from 'firebase/firestore'
 
 const ItemDetail = ({ detail }) => {
-    const {addCart} = useContext(CartContext)
+    const db = getFirestore()
+    const { addCart } = useContext(CartContext)
     const [quantityAdded, setQuantityAdded] = useState(0)
+    const [stock, setStock] = useState(0)
+
+    useEffect(() => {
+        const docRef = doc(db, "items", detail.id)
+
+        getDoc(docRef)
+            .then(response => {
+                setStock(response.data().stock)
+            })
+    }, [detail.id])
 
     const handleOnAdd = (quantity) => {
         setQuantityAdded(quantity)
@@ -16,7 +28,7 @@ const ItemDetail = ({ detail }) => {
     return (
         <div className={style['container_detail']}>
             <div className={style['container_imagen']}>
-                <img src={detail.img} alt='detalle' className={style['img_style']} />
+                <img src={detail.image} alt='detalle' className={style['img_style']} />
             </div>
             <div className={style['container_info']}>
                 <h1>{detail.name}</h1>
@@ -28,7 +40,7 @@ const ItemDetail = ({ detail }) => {
                         quantityAdded > 0 ? (
                             <Link to='/cart' className={style['btn_agregar']}> Terminar compra </Link>
                         ) : (
-                            <ItemCount initial={1} stock={10} onAdd={handleOnAdd}/>
+                            <ItemCount initial={1} stock={stock} onAdd={handleOnAdd}/>
                         )
                     }
                 </div>
