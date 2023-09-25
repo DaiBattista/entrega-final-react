@@ -10,8 +10,6 @@ const Checkout = () => {
 
     const {cart, total, clearCart} = useContext(CartContext)
 
-    let batch
-
     const creatOrder = async ({ client, phone, email}) => {
         setLoading(true)
 
@@ -24,7 +22,7 @@ const Checkout = () => {
                 total: total, 
                 date: Timestamp.fromDate(new Date())
             }
-            const bach = writeBatch(db)
+            const batch = writeBatch(db)
 
             const outOfStock = []
 
