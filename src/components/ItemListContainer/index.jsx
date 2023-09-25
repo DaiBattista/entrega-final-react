@@ -13,7 +13,6 @@ import { db } from '../../firebase/client'
 const ItemListContainer = () => {
     const [ products, setProducts ] = useState([])
     const [ productsAdapted, setProductsAdapted ] = useState([])
-    const [ id, setId ] = useState("")
 
     const { categoryId } = useParams()
 
@@ -25,8 +24,7 @@ const ItemListContainer = () => {
         getDocs(collectionRef)
             .then(response => {
                 setProductsAdapted(response.docs.map(doc => {
-                    const data = doc.data()
-                    setId(doc.id)
+                    const data = { ...doc.data(), id: doc.id }
                     return data
                 }))
             })
