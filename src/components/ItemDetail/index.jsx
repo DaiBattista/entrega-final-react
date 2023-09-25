@@ -31,7 +31,7 @@ const ItemDetail = ({ detail }) => {
                 <img src={detail.image} alt='detalle' className={style['img_style']} />
             </div>
             <div className={style['container_info']}>
-                <h1>{detail.name}</h1>
+                <h1>{detail.title}</h1>
                 <h2>${detail.price}</h2>
                 <h3>{detail.description}</h3>
 

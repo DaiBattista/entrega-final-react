@@ -19,7 +19,7 @@ const CartItem = ({ producto }) => {
                 <img src={producto.image} alt='no hay imagen' className={style['img_cart']}></img>
             </div>
             <div className={style['items_cart_pago']}>
-                <h1>{producto.name}</h1>
+                <h1>{producto.title}</h1>
                 <p>Cantidad: {producto.quantity}</p>
                 <p>Precio: ${producto.price}</p>
                 <p>Subtotal: ${producto.quantity * producto.price}</p>

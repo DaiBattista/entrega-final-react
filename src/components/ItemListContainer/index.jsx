@@ -38,7 +38,7 @@ const ItemListContainer = () => {
                         <Card>
                             <Card.Img variant='top' src={item.image} />
                             <Card.Body>
-                                <Card.Title>{item.name}</Card.Title>
+                                <Card.Title>{item.title}</Card.Title>
                                 <Card.Text>{item.description}</Card.Text>
                                 <Link to={`/item/${item.id}`} className={style['btn_carrito']}>Ver más</Link>
                             </Card.Body>
@@ -78,9 +78,9 @@ const ItemDetailContainer = () => {
                 <Row>
                     <Col sm={12} md={8} lg={6}>
                         <Card>
-                            <Card.Img variant='top' src={product.img} />
+                            <Card.Img variant='top' src={product.image} />
                             <Card.Body>
-                                <Card.Title>{product.name}</Card.Title>
+                                <Card.Title>{product.title}</Card.Title>
                                 <Card.Text>{product.description}</Card.Text>
                                 <Card.Text>
                                     ${product.price}
