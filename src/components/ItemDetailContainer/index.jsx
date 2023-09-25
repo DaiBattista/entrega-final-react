@@ -4,6 +4,7 @@ import ItemDetail from '../ItemDetail/index'
 import { getDoc, doc } from 'firebase/firestore'
 import { db } from '../../firebase/client'
 import { Card, Col, Container, Row } from "react-bootstrap"
+import style from './style.module.css'
 
 const ItemDetailContainer = () => {
     const [product, setProduct] = useState(null)
@@ -21,17 +22,9 @@ const ItemDetailContainer = () => {
 
     if (product === null) {
         return (
-            <Container fluid className='mt-4'>
-                <Row>
-                    <Col sm={12} md={8} lg={6}>
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>Cargando...</Card.Title>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
+            <div className={style["charge_container"]}>
+                <h2>Cargando...</h2>
+            </div>
         )
     }
 

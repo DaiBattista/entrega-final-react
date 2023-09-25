@@ -68,17 +68,9 @@ const ItemDetailContainer = () => {
 
     if (product === null) {
         return (
-            <Container fluid className='mt-4'>
-                <Row>
-                    <Col sm={12} md={8} lg={6}>
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>Cargando...</Card.Title>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
+            <div className={['charge_container']}>
+                <h2>Cargando...</h2>
+            </div>
         )
     } else {
         return (

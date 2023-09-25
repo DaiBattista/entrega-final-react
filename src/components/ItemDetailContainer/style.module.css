@@ -1,0 +1,15 @@
+.charge_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    text-align: center;
+}
+
+.charge_container h2 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 0.5rem;
+    padding: 1em;
+}

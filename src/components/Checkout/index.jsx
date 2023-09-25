@@ -3,14 +3,15 @@ import { db } from '../../firebase/client'
 import CheckoutForm from '../CheckoutForm/index'
 import { useContext, useState } from 'react'
 import { CartContext } from '../CartContext'
+import style from './style.module.css'
 
 const Checkout = () => {
     const [loading, setLoading] = useState(false)
     const [orderId, setOrderId] = useState('')
 
-    const {cart, total, clearCart} = useContext(CartContext)
+    const { cart, totalPrice, clearCart } = useContext(CartContext)
 
-    const creatOrder = async ({ client, phone, email}) => {
+    const creatOrder = async ({ client, phone, email }) => {
         setLoading(true)
 
         try {
@@ -19,7 +20,7 @@ const Checkout = () => {
                     client, phone, email
                 },
                 items: cart,
-                total: total, 
+                total: totalPrice(),
                 date: Timestamp.fromDate(new Date())
             }
             const batch = writeBatch(db)
@@ -30,7 +31,7 @@ const Checkout = () => {
 
             const productsRef = collection(db, 'items')
 
-            const productsAddedFromFirestore = await getDoc(query(productsRef, where(documentId(), 'in', ids)))
+            const productsAddedFromFirestore = await getDocs(query(productsRef, where(documentId(), 'in', ids)))
 
             const { docs } = productsAddedFromFirestore
 
@@ -41,14 +42,14 @@ const Checkout = () => {
                 const productAddedToCart = cart.find(prod => prod.id === doc.id)
                 const prodQuantity = productAddedToCart?.quantity
 
-                if(stockDb >= prodQuantity) {
-                    batch.update(doc.ref, { stock: stockDb - prodQuantity})
+                if (stockDb >= prodQuantity) {
+                    batch.update(doc.ref, { stock: stockDb - prodQuantity })
                 } else {
-                    outOfStock.push({id: doc.id, ...dataDoc})
+                    outOfStock.push({ id: doc.id, ...dataDoc })
                 }
             })
 
-            if(outOfStock.length === 0) {
+            if (outOfStock.length === 0) {
                 await batch.commit()
 
                 const orderRef = collection(db, 'orders')
@@ -67,14 +68,26 @@ const Checkout = () => {
         }
     }
 
-    if(loading) {
-        return <h1>El id de su orden es:{orderId}</h1>
+    if (orderId) {
+        return (
+            <div className={style['checkout_container']}>
+                <p>El id de su orden es: <b>{orderId}</b></p>
+            </div>
+        )
+    }
+
+    if (loading) {
+        return (
+            <div className={style['checkout_container']}>
+                <h2>Cargando...</h2>
+            </div>
+        )
     }
 
     return (
-        <div>
-            <h1>Checkout</h1>
-            <CheckoutForm onConfirm={creatOrder}/>
+        <div className={style['checkout_container']}>
+            <h1>Completar orden</h1>
+            <CheckoutForm onConfirm={creatOrder} />
         </div>
     )
 }

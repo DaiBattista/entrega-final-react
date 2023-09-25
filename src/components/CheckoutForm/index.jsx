@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import Checkout from '../Checkout'
+import { useContext, useState } from 'react'
+import { Checkout } from '../Checkout/index'
 import style from './style.module.css'
 
-const CheckoutForm = ({ onConfirm, creatOrder }) => {
+const CheckoutForm = ({ onConfirm }) => {
     const [client, setClient] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
@@ -15,39 +15,39 @@ const CheckoutForm = ({ onConfirm, creatOrder }) => {
         }
 
         onConfirm(userData)
-        creatOrder(userData)
     }
 
     return (
-        <div>
-            <form onSubmit={handleConfirm}></form>
-            <label>
-                Nombre
-                <input 
-                type="text" 
-                value={client}
-                onChange={({ target }) => setClient(target.value)}
-                />
-            </label>
-            <label>
-                Telefono
-                <input 
-                type="text" 
-                value={phone}
-                onChange={({ target }) => setPhone(target.value)}
-                />
-            </label>
-            <label>
-                Email
-                <input 
-                type="email" 
-                value={email}
-                onChange={({ target }) => setEmail(target.value)}
-                />
-            </label>
-            <div>
-                <button type='submit' onClick={() => creatOrder()}>Crear Orden</button>
-            </div>
+        <div className={style['checkout_container']}>
+            <form onSubmit={handleConfirm}>
+                <label>
+                    Nombre
+                    <input
+                        type="text"
+                        value={client}
+                        onChange={({ target }) => setClient(target.value)}
+                    />
+                </label>
+                <label>
+                    Telefono
+                    <input
+                        type="text"
+                        value={phone}
+                        onChange={({ target }) => setPhone(target.value)}
+                    />
+                </label>
+                <label>
+                    Email
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={({ target }) => setEmail(target.value)}
+                    />
+                </label>
+                <div>
+                    <button type='submit' className={style['btn_orden']}>Crear Orden</button>
+                </div>
+            </form>
         </div>
     )
 }
