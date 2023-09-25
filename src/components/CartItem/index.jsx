@@ -3,7 +3,6 @@ import { CartContext } from '../CartContext'
 import { useContext, useState } from 'react'
 import style from './style.module.css'
 import { ItemListContainer } from '../ItemListContainer'
-import { db } from '../../firebase/client'
 
 class CartItem extends React.Component {
     constructor(props) {
@@ -12,18 +11,6 @@ class CartItem extends React.Component {
         this.state = {
             products: [],
         }
-
-        this.componentDidMount = this.componentDidMount.bind(this)
-    }
-
-    componentDidMount() {
-        const collectionRef = db.collection("items")
-
-        collectionRef.get().then(response => {
-            this.setState({
-                products: response.docs.map(doc => doc.data()),
-            })
-        })
     }
 
     render() {
