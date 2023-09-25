@@ -5,7 +5,7 @@ import CartItem from '../CartItem'
 import { Link } from 'react-router-dom'
 
 const Cart = () => {
-    const { cart, totalPrice } = useContext(CartContext)
+    const { cart, totalPrice, vaciarCarrito } = useContext(CartContext)
 
     if (cart.length === 0) {
         return (
@@ -25,6 +25,10 @@ const Cart = () => {
                 <p>
                     Total: <b>${totalPrice()}</b>
                 </p>
+            </div>
+            <div className={style['checkout_container_btn']}>
+                <Link to= '/checkout' className={style['btn_pagar']}>Ir a pagar</Link>
+                <button onClick={() => vaciarCarrito()} className={style['btn_clear']}>Limpiar carrito</button>
             </div>
         </div>
     )

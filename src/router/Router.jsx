@@ -4,6 +4,7 @@ import NavBar from '../components/NavBar'
 import ItemDetailContainer from '../components/ItemDetailContainer'
 import { CartComponentContext } from '../components/CartContext'
 import Cart from '../components/Cart'
+import Checkout from '../components/Checkout'
 
 import {
     BrowserRouter,
@@ -22,6 +23,7 @@ export default function Router() {
                     <Route path="/category/:id" element={<ItemListContainer />} />
                     <Route path="/item/:id" element={<ItemDetailContainer />} />
                     <Route path="/cart" element={<Cart/>}/>
+                    <Route path="/checkout" element={<Checkout/>}></Route>
                 </Routes>
                 </BrowserRouter>
         </CartComponentContext>

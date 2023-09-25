@@ -1,9 +1,11 @@
 import Router from './router/Router'
 
-function App () {
+
+function App() {
   return (
     <Router />
-  );
+  )
 }
+
 export default App
 

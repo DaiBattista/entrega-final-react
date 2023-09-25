@@ -76,3 +76,38 @@ h3 {
     letter-spacing: 0.2rem;
     padding: 1.2em;
 }
+
+.btn_clear {
+    width: 12rem;
+    padding: 1.5em;
+    border-radius: 16px;
+    background-color:rgb(224, 43, 43);
+    border-color: rgb(224, 43, 43);
+    color: rgb(223, 223, 223);
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.2em;
+    font-size: 0.8em;
+}
+
+.checkout_container_btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_pagar {
+    width: 12rem;
+    padding: 1.5em;
+    border-radius: 16px;
+    background-color:rgb(223, 223, 223);
+    border-color: rgb(223, 223, 223);
+    color: rgb(224, 43, 43);
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.2em;
+    font-size: 0.8em;
+}

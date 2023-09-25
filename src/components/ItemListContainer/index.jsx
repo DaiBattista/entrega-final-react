@@ -1,36 +1,41 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, Form } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
 import style from './style.module.css'
-import { CartContext } from '../CartContext/index'
+import { CartContext } from '../CartContext'
+import { getDocs, collection, query, where, doc, getDoc } from 'firebase/firestore'
+import { db } from '../../firebase/client'
 
-export default function ItemListContainer() {
-    const {productos} = useContext(CartContext)
-    const [items, setItems] = useState([])
-    const { id } = useParams()
+const ItemListContainer = () => {
+    const [ products, setProducts ] = useState([])
+    const [ productsAdapted, setProductsAdapted ] = useState([])
+    const [ id, setId ] = useState("")
+
+    const { categoryId } = useParams()
+
+    const collectionRef = categoryId
+        ? query(collection(db, "items"), where('category', '==', categoryId))
+        : collection(db, "items")
 
     useEffect(() => {
-        const getProducts = async () => {
-            // const response = await fetch('/data/productos.json')
-            // const productos = await response.json()
-            const productosFiltrados = productos.filter(producto => producto.category === id)
-
-            const items = productosFiltrados.length > 0 ? productosFiltrados : productos
-
-            setItems(items)
-        }
-
-        getProducts()
-    }, [id]
-    )
+        getDocs(collectionRef)
+            .then(response => {
+                setProductsAdapted(response.docs.map(doc => {
+                    const data = doc.data()
+                    setId(doc.id)
+                    return data
+                }))
+            })
+    }, [categoryId])
 
     return (
         <Container fluid className='mt-4'>
             <Row>
-                {items.map(item => (
+                {productsAdapted.map(item => (
                     <Col key={item.id} lg={4} className='mb-4'>
                         <Card>
                             <Card.Img variant='top' src={item.img} />
@@ -46,3 +51,58 @@ export default function ItemListContainer() {
         </Container>
     )
 }
+
+const ItemDetailContainer = () => {
+    const [ product, setProduct ] = useState(null)
+    const { id } = useParams()
+
+    useEffect(() => {
+        const docRef = doc(db, "items", id)
+
+        getDoc(docRef)
+            .then(response => {
+                if (response.exists()) {
+                    setProduct(response.data())
+                } else {
+                }
+            })
+    }, [id])
+
+    if (product === null) {
+        return (
+            <Container fluid className='mt-4'>
+                <Row>
+                    <Col sm={12} md={8} lg={6}>
+                        <Card>
+                            <Card.Body>
+                                <Card.Title>Cargando...</Card.Title>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+        )
+    } else {
+        return (
+            <Container fluid className='mt-4'>
+                <Row>
+                    <Col sm={12} md={8} lg={6}>
+                        <Card>
+                            <Card.Img variant='top' src={product.img} />
+                            <Card.Body>
+                                <Card.Title>{product.name}</Card.Title>
+                                <Card.Text>{product.description}</Card.Text>
+                                <Card.Text>
+                                    ${product.price}
+                                </Card.Text>
+                                <Button variant='primary'>Agregar al carrito</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+        )
+    }
+}
+
+export default ItemListContainer
